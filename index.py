@@ -19,7 +19,7 @@ for i in range(10):
     filtedList = []
     for recordPath in records:
       marked = markSignal.markSignal(recordPath)
-      filtedMarked = filter.filter(marked)
-      filtedList.append(filtedMarked)
+      if marked != None:
+        filtedMarked = filter.filter(marked)
+        filtedList.append(filtedMarked)
     # 将checkedDir下的一个文件全部处理完后将filtedList的存储结果写入filtedData下
-

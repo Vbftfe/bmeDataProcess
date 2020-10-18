@@ -9,14 +9,17 @@ def markSignal(recordPath):
     recordName = recordPath[11:len(recordPath)]
     pn_dir = f'published-projects/mimic3wdb/1.0/{recordPath[0:11]}'
 
-    record = wfdb.rdrecord(recordName, pn_dir=pn_dir)
-    sig_names = record.sig_name
-    res = {"ABP": 0, "PLETH": 0}
-    ABP_idx = sig_names.index("ABP")
-    PLETH_idx = sig_names.index("PLETH")
-    res["ABP"] = record.p_signal[:, ABP_idx]
-    res["PLETH"] = record.p_signal[:, PLETH_idx]
-
+    record = wfdb.rdheader(recordName, pn_dir=pn_dir)
+    if 600*record.fs <= record.sig_len: 
+      record = wfdb.rdrecord(recordName, pn_dir=pn_dir)
+      sig_names = record.sig_name
+      res = {"ABP": 0, "PLETH": 0}
+      ABP_idx = sig_names.index("ABP")
+      PLETH_idx = sig_names.index("PLETH")
+      res["ABP"] = record.p_signal[:, ABP_idx]
+      res["PLETH"] = record.p_signal[:, PLETH_idx]
+    else:
+      res = None
     print(res)
 
     return res
