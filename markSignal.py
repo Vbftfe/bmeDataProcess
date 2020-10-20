@@ -4,7 +4,6 @@
 
 import wfdb
 
-
 def markSignal(recordPath):
     recordName = recordPath[11:len(recordPath)]
     pn_dir = f'published-projects/mimic3wdb/1.0/{recordPath[0:11]}'
